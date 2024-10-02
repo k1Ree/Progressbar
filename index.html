@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circular Progress Bar with Overshoot Effect</title>
+    <title>Circular Progress Bar with Overshoot and Smooth Text Appearance</title>
     <style>
         .progress-circle {
             position: relative;
@@ -28,27 +28,13 @@
             stroke: #e0e0e0;
         }
 
-        /* Круг прогресса */
+        /* Круг прогресса с пастельным красным цветом */
         .progress-bar {
-            stroke: #ffe014;
+            stroke: #ffb3b3; /* Пастельный красный */
             stroke-dasharray: 440; /* длина круга */
             stroke-dashoffset: 440; /* изначально скрываем */
-            transition: stroke-dashoffset 1s ease; /* добавляем плавный переход */
+            transition: stroke-dashoffset 0.6s ease; /* плавное изменение заполнения */
         }
-.progress-text{
-  opacity:0;
-  transition:1s;
-animation: 1s animka;
-
-}
-keyframes animka {
- 0%{
-opacity:0;
-}
-100%{
-opacity:1
-}
-}
 
         /* Число в центре круга */
         .progress-text {
@@ -58,12 +44,14 @@ opacity:1
             transform: translate(-50%, -50%);
             font-size: 24px;
             font-weight: bold;
+            opacity: 0; /* Сначала текст невидим */
+            transition: opacity 1s ease; /* Плавное появление текста за 1 секунду */
         }
     </style>
 </head>
 <body>
 
-    <h1>Circular Progress Bar with Overshoot Effect</h1>
+    <h1>Circular Progress Bar with Overshoot and Smooth Text Appearance</h1>
 
     <!-- Круговой прогресс-бар -->
     <div class="progress-circle">
@@ -104,16 +92,21 @@ opacity:1
             let offsetNormal = 440 - (440 * targetProgress) / 100;
             let offsetOvershoot = 440 - (440 * overshootProgress) / 100;
 
+            // Сначала делаем текст невидимым
+            progressText.style.opacity = 0;
+
             // Устанавливаем перевес на 3% больше
-            progressBar.style.transition = 'stroke-dashoffset 1s ease'; // Плавное заполнение до перевеса
+            progressBar.style.transition = 'stroke-dashoffset 0.6s ease'; // Плавное заполнение до перевеса
             progressBar.style.strokeDashoffset = offsetOvershoot;
-            progressText.innerHTML = overshootProgress + "%"; // Отображаем перевес
 
             // Возвращаемся к нормальному значению через 0.6 секунды
             setTimeout(() => {
                 progressBar.style.transition = 'stroke-dashoffset 0.4s ease'; // Плавный возврат
                 progressBar.style.strokeDashoffset = offsetNormal;
-                progressText.innerHTML = targetProgress + "%"; // Отображаем конечное значение
+
+                // Отображаем конечное значение (без учёта перевеса) и делаем текст видимым
+                progressText.innerHTML = targetProgress + "%";
+                progressText.style.opacity = 1; // Плавное появление текста
             }, 600); // Задержка перед возвратом на 0.6 секунды
         }
     </script>
