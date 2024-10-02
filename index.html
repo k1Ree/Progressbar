@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circular Progress Bar with Input Percentage</title>
+    <title>Circular Progress Bar with Smooth Animation</title>
     <style>
         .progress-circle {
             position: relative;
@@ -33,7 +33,7 @@
             stroke: #4caf50;
             stroke-dasharray: 440; /* длина круга */
             stroke-dashoffset: 440; /* изначально скрываем */
-            transition: stroke-dashoffset 0.4s ease;
+            transition: stroke-dashoffset 0.6s ease; /* добавляем плавный переход */
         }
 
         /* Число в центре круга */
@@ -49,7 +49,7 @@
 </head>
 <body>
 
-    <h1>Circular Progress Bar with Percentage Input</h1>
+    <h1>Circular Progress Bar with Smooth Animation</h1>
 
     <!-- Круговой прогресс-бар -->
     <div class="progress-circle">
@@ -81,8 +81,10 @@
 
             let progress = parseInt(inputValue); // Получаем значение из input
             let offset = 440 - (440 * progress) / 100; // Вычисляем сдвиг для прогресса
-            progressBar.style.strokeDashoffset = offset; // Обновляем стиль прогресс-бара
-            progressText.innerHTML = progress + "%"; // Обновляем текст в центре круга
+            
+            // Обновляем стиль прогресс-бара и текст в центре круга
+            progressBar.style.strokeDashoffset = offset; // Обновляем сдвиг
+            progressText.innerHTML = progress + "%"; // Обновляем текст
         }
     </script>
 
