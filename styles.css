@@ -26,6 +26,7 @@ body {
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
     stroke-linecap: round; /* Закругленные концы */
+color:red;
 }
 
 input, button {
