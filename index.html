@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circular Progress Bar with Input</title>
+    <title>Circular Progress Bar with Input Percentage</title>
     <style>
         .progress-circle {
             position: relative;
@@ -31,8 +31,8 @@
         /* Круг прогресса */
         .progress-bar {
             stroke: #4caf50;
-            stroke-dasharray: 440;
-            stroke-dashoffset: 440;
+            stroke-dasharray: 440; /* длина круга */
+            stroke-dashoffset: 440; /* изначально скрываем */
             transition: stroke-dashoffset 0.4s ease;
         }
 
@@ -49,7 +49,7 @@
 </head>
 <body>
 
-    <h1>Circular Progress Bar with Input</h1>
+    <h1>Circular Progress Bar with Percentage Input</h1>
 
     <!-- Круговой прогресс-бар -->
     <div class="progress-circle">
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Поле для ввода числа -->
-    <input type="number" id="progress-input" min="0" max="100" placeholder="Enter value (0-100)">
+    <input type="number" id="progress-input" min="0" max="100" placeholder="Enter percentage (0-100)">
     <button onclick="updateProgress()">Set Progress</button>
 
     <script>
@@ -74,15 +74,15 @@
             let inputValue = document.getElementById('progress-input').value;
 
             // Проверяем, что значение находится в пределах 0-100
-            if (inputValue < 0 || inputValue > 100) {
+            if (inputValue < 0 || inputValue > 100 || inputValue === "") {
                 alert("Please enter a value between 0 and 100.");
                 return;
             }
 
             let progress = parseInt(inputValue); // Получаем значение из input
             let offset = 440 - (440 * progress) / 100; // Вычисляем сдвиг для прогресса
-            progressBar.style.strokeDashoffset = offset;
-            progressText.innerHTML = progress + "%";
+            progressBar.style.strokeDashoffset = offset; // Обновляем стиль прогресс-бара
+            progressText.innerHTML = progress + "%"; // Обновляем текст в центре круга
         }
     </script>
 
