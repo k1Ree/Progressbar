@@ -1,61 +1,37 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #89f7fe, #66a6ff);
-}
-
-.container {
-    text-align: center;
-}
-
 .progress-container {
-    margin: 20px;
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px; /* Для отступа перед инпутом */
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring__background {
+    stroke-dasharray: 314; /* 2 * Math.PI * 50 (где 50 — радиус круга) */
+    stroke-dashoffset: 0;
 }
 
 .progress-ring__circle {
-    transition: stroke-dashoffset 1s ease;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    stroke-linecap: round;
-    stroke-dasharray: 339.292; /* Это периметр окружности (2 * PI * радиус) */
-    stroke-dashoffset: 339.292; /* Начальное заполнение */
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314; /* Полностью скрываем круг по умолчанию */
+    transition: stroke-dashoffset 0.5s ease;
 }
 
-.custom-progress-bar {
-    stroke: blue; /* Начальный цвет прогресса */
-    stroke-width: 12; /* Толщина линии */
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
 }
 
-/* В этом классе можно менять стили для прогресс-бара */
-.custom-progress-bar {
-    stroke: green; /* Пример: поменять цвет */
-    stroke-width: 10; /* Пример: изменить ширину */
-}
-
-input, button {
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
+input[type="range"] {
+    width: 120px;
+    display: block;
+    margin: 0 auto;
 }
