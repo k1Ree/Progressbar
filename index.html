@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circular Progress Bar with Smooth Animation</title>
+    <title>Circular Progress Bar with Overshoot Effect</title>
     <style>
         .progress-circle {
             position: relative;
@@ -30,10 +30,10 @@
 
         /* Круг прогресса */
         .progress-bar {
-            stroke: red;
+            stroke: #4caf50;
             stroke-dasharray: 440; /* длина круга */
             stroke-dashoffset: 440; /* изначально скрываем */
-            transition: stroke-dashoffset 1s ease; /* добавляем плавный переход */
+            transition: stroke-dashoffset 0.6s ease; /* добавляем плавный переход */
         }
 
         /* Число в центре круга */
@@ -49,7 +49,7 @@
 </head>
 <body>
 
-    <h1>Circular Progress Bar with Smooth Animation</h1>
+    <h1>Circular Progress Bar with Overshoot Effect</h1>
 
     <!-- Круговой прогресс-бар -->
     <div class="progress-circle">
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Поле для ввода числа -->
-    <input type="number" id="progress-input" min="0" max="100" value=48 placeholder="Enter percentage (0-100)">
+    <input type="number" id="progress-input" min="0" max="100" placeholder="Enter percentage (0-100)">
     <button onclick="updateProgress()">Set Progress</button>
 
     <script>
@@ -79,12 +79,28 @@
                 return;
             }
 
-            let progress = parseInt(inputValue); // Получаем значение из input
-            let offset = 440 - (440 * progress) / 100; // Вычисляем сдвиг для прогресса
-            
-            // Обновляем стиль прогресс-бара и текст в центре круга
-            progressBar.style.strokeDashoffset = offset; // Обновляем сдвиг
-            progressText.innerHTML = progress + "%"; // Обновляем текст
+            let targetProgress = parseInt(inputValue); // Нормальное значение прогресса
+            let overshootProgress = targetProgress + 3; // Добавляем 3% для эффекта перевеса
+
+            if (overshootProgress > 100) {
+                overshootProgress = 100; // Ограничиваем перевес 100%
+            }
+
+            // Преобразуем проценты в смещение
+            let offsetNormal = 440 - (440 * targetProgress) / 100;
+            let offsetOvershoot = 440 - (440 * overshootProgress) / 100;
+
+            // Устанавливаем перевес на 3% больше
+            progressBar.style.transition = 'stroke-dashoffset 0.6s ease'; // Плавное заполнение до перевеса
+            progressBar.style.strokeDashoffset = offsetOvershoot;
+            progressText.innerHTML = overshootProgress + "%"; // Отображаем перевес
+
+            // Возвращаемся к нормальному значению через 0.6 секунды
+            setTimeout(() => {
+                progressBar.style.transition = 'stroke-dashoffset 0.4s ease'; // Плавный возврат
+                progressBar.style.strokeDashoffset = offsetNormal;
+                progressText.innerHTML = targetProgress + "%"; // Отображаем конечное значение
+            }, 600); // Задержка перед возвратом на 0.6 секунды
         }
     </script>
 
