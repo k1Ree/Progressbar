@@ -1,20 +1,19 @@
-const circle = document.querySelector('.progress-ring__circle');
-const radius = circle.r.baseVal.value;
-const circumference = 2 * Math.PI * radius;
-
-circle.style.strokeDasharray = `${circumference} ${circumference}`;
-circle.style.strokeDashoffset = circumference;
-
 function setProgress(percent) {
+    const circle = document.querySelector('.progress-ring__circle');
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+
     const offset = circumference - (percent / 100) * circumference;
     circle.style.strokeDashoffset = offset;
+
+    document.querySelector('.progress-text').textContent = `${percent}%`;
 }
 
-document.getElementById('updateButton').addEventListener('click', function() {
-    const percentInput = document.getElementById('percentInput').value;
-    if (percentInput >= 0 && percentInput <= 100) {
-        setProgress(percentInput);
-    } else {
-        alert('Please enter a value between 0 and 100.');
-    }
+// Обработка изменения ползунка
+const input = document.getElementById('progressInput');
+input.addEventListener('input', function() {
+    setProgress(this.value);
 });
+
+// Пример начального прогресса (если нужно)
+setProgress(0); // Устанавливаем прогресс на 0% при загрузке
