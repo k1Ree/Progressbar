@@ -25,8 +25,20 @@ body {
     transition: stroke-dashoffset 1s ease;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
-    stroke-linecap: round; /* Закругленные концы */
-color:red;
+    stroke-linecap: round;
+    stroke-dasharray: 339.292; /* Это периметр окружности (2 * PI * радиус) */
+    stroke-dashoffset: 339.292; /* Начальное заполнение */
+}
+
+.custom-progress-bar {
+    stroke: blue; /* Начальный цвет прогресса */
+    stroke-width: 12; /* Толщина линии */
+}
+
+/* В этом классе можно менять стили для прогресс-бара */
+.custom-progress-bar {
+    stroke: red; /* Пример: поменять цвет */
+    stroke-width: 16; /* Пример: изменить ширину */
 }
 
 input, button {
